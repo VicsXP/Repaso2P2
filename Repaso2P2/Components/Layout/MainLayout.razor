@@ -1,9 +1,70 @@
 ﻿@inherits LayoutComponentBase
 
-@Body
+<div>
+
+    <aside class="sidebar">
+
+        <div class="sidebar-title">
+            Biblioteca
+        </div>
+
+        <nav>
+
+            <a href="/"
+               class="sidebar-link">
+
+                Inicio
+
+            </a>
+
+            <a href="/albums"
+               class="sidebar-link">
+
+                Registrar Álbum
+
+            </a>
+
+            <a href="/lista-albums"
+               class="sidebar-link">
+
+                Biblioteca Musical
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <div class="main-content">
+
+        <div class="topbar">
+
+            <h3>
+                Sistema Biblioteca Musical
+            </h3>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            @Body
+
+        </div>
+
+    </div>
+
+</div>
 
 <div id="blazor-error-ui" data-nosnippet>
+
     An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
+
+    <a href="." class="reload">
+        Reload
+    </a>
+
+    <span class="dismiss">
+        🗙
+    </span>
+
 </div>

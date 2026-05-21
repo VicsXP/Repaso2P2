@@ -1,0 +1,148 @@
+﻿@page "/lista-albums"
+
+@using Repaso2P2.Models
+@using Repaso2P2.Services
+
+@inject AlbumService albumService
+
+<h3 class="mb-4">
+    Biblioteca de Música
+</h3>
+
+<div class="card shadow p-4 mb-4">
+
+    <label class="form-label">
+        Buscar por Artista
+    </label>
+
+    <div class="d-flex gap-2">
+
+        <input class="form-control"
+               placeholder="Ingrese artista..."
+               @bind="artistaBusqueda" />
+
+        <button class="btn btn-primary"
+                @onclick="Buscar">
+
+            Buscar
+
+        </button>
+
+        <button class="btn btn-secondary"
+                @onclick="MostrarTodos">
+
+            Mostrar Todos
+
+        </button>
+
+    </div>
+
+</div>
+
+@if (albums.Count == 0)
+{
+    <div class="alert alert-warning">
+
+        No hay álbumes registrados.
+
+    </div>
+}
+else
+{
+    @foreach (var album in albums)
+    {
+        <div class="card shadow mb-4">
+
+            <div class="card-header bg-dark text-white">
+
+                <h4>
+                    @album.TituloAlbum
+                </h4>
+
+            </div>
+
+            <div class="card-body">
+
+                <p>
+                    <strong>Artista:</strong>
+                    @album.ArtistaAlbum
+                </p>
+
+                <p>
+                    <strong>Fecha Publicación:</strong>
+                    @album.FechaPublicacion.ToShortDateString()
+                </p>
+
+                <h5 class="mt-4">
+                    Canciones
+                </h5>
+
+                @if (album.Canciones.Count == 0)
+                {
+                    <p>
+                        No hay canciones registradas.
+                    </p>
+                }
+                else
+                {
+                    <table class="table table-striped">
+
+                        <thead class="table-dark">
+
+                            <tr>
+
+                                <th>Nombre</th>
+                                <th>Artista</th>
+                                <th>Duración</th>
+                                <th>Archivo</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var cancion in album.Canciones)
+                            {
+                                <tr>
+
+                                    <td>@cancion.NombreCancion</td>
+                                    <td>@cancion.Artista</td>
+                                    <td>@cancion.Duracion min</td>
+                                    <td>@cancion.Archivo</td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+                }
+
+            </div>
+
+        </div>
+    }
+}
+
+@code {
+
+    private List<Album> albums = new();
+
+    private string artistaBusqueda = "";
+
+    protected override void OnInitialized()
+    {
+        albums = albumService.ObtenerAlbums();
+    }
+
+    private void Buscar()
+    {
+        albums = albumService.BuscarPorArtista(artistaBusqueda);
+    }
+
+    private void MostrarTodos()
+    {
+        albums = albumService.ObtenerAlbums();
+    }
+}
