@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "Id": 1,
+    "TituloAlbum": "Red Velvet",
+    "ArtistaAlbum": "Guns n Roses",
+    "FechaPublicacion": "2005-03-25T00:00:00",
+    "Canciones": []
+  },
+  {
+    "Id": 2,
+    "TituloAlbum": "Thriller",
+    "ArtistaAlbum": "Michael Jackson",
+    "FechaPublicacion": "1982-12-19T00:00:00",
+    "Canciones": [
+      {
+        "NombreCancion": "Beat It",
+        "Artista": "Michael Jackson",
+        "Duracion": 4.5,
+        "Archivo": "beatit.mp3"
+      }
+    ]
+  }
+]

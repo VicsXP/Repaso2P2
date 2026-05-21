@@ -1,0 +1,187 @@
+﻿@page "/albums"
+
+@using Repaso2P2.Models
+@using Repaso2P2.Services
+
+@inject AlbumService albumService
+
+<h3 class="mb-4">
+    Registro de Álbumes
+</h3>
+
+<div class="card shadow p-4">
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Título del Álbum
+        </label>
+
+        <input class="form-control"
+               @bind="nuevoAlbum.TituloAlbum" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Artista del Álbum
+        </label>
+
+        <input class="form-control"
+               @bind="nuevoAlbum.ArtistaAlbum" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Fecha de Publicación
+        </label>
+
+        <input type="date"
+               class="form-control"
+               @bind="nuevoAlbum.FechaPublicacion" />
+
+    </div>
+
+    <hr />
+
+    <h5 class="mb-3">
+        Agregar Canciones
+    </h5>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Nombre Canción
+        </label>
+
+        <input class="form-control"
+               @bind="nuevaCancion.NombreCancion" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Artista
+        </label>
+
+        <input class="form-control"
+               @bind="nuevaCancion.Artista" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Duración
+        </label>
+
+        <input type="number"
+               class="form-control"
+               @bind="nuevaCancion.Duracion" />
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Archivo
+        </label>
+
+        <input class="form-control"
+               @bind="nuevaCancion.Archivo" />
+
+    </div>
+
+    <button class="btn btn-success mb-4"
+            @onclick="AgregarCancion">
+
+        Agregar Canción
+
+    </button>
+
+    @if (nuevoAlbum.Canciones.Count > 0)
+    {
+        <table class="table table-striped">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Nombre</th>
+                    <th>Artista</th>
+                    <th>Duración</th>
+                    <th>Archivo</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var cancion in nuevoAlbum.Canciones)
+                {
+                    <tr>
+
+                        <td>@cancion.NombreCancion</td>
+                        <td>@cancion.Artista</td>
+                        <td>@cancion.Duracion min</td>
+                        <td>@cancion.Archivo</td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    }
+
+    <button class="btn btn-primary"
+            @onclick="GuardarAlbum">
+
+        Guardar Álbum
+
+    </button>
+
+</div>
+
+@if (mensaje != "")
+{
+    <div class="alert alert-success mt-3">
+
+        @mensaje
+
+    </div>
+}
+
+@code {
+
+    private Album nuevoAlbum = new();
+
+    private Cancion nuevaCancion = new();
+
+    private string mensaje = "";
+
+    // + cancion
+    private void AgregarCancion()
+    {
+        nuevoAlbum.Canciones.Add(nuevaCancion);
+
+        nuevaCancion = new Cancion();
+    }
+
+    // Guardar Album
+    private void GuardarAlbum()
+    {
+        albumService.GuardarAlbum(nuevoAlbum);
+
+        mensaje = "Álbum guardado correctamente";
+
+        nuevoAlbum = new Album();
+
+        nuevaCancion = new Cancion();
+    }
+}
