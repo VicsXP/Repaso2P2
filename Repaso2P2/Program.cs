@@ -1,8 +1,10 @@
 using Repaso2P2.Components;
+using Repaso2P2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<AlbumService>();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
